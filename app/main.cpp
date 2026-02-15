@@ -19,6 +19,27 @@
 #include "transformations/Homothetie.h"
 
 #include "visitors/VisiteurSauvegarde.h"
+#include "network/TcpClient.h"
+#include "visitors/VisiteurDessinTCP.h"
+
+static void dessiner(Forme &f)
+{
+    TcpClient client("127.0.0.1", 12345);
+
+    if (!client.connectToServer())
+    {
+        std::cout << "Connexion serveur dessin impossible\n";
+        return;
+    }
+
+    client.sendLine("OPEN 800 600");
+
+    VisiteurDessinTCP v(client);
+    f.accept(v);
+
+    client.sendLine("END");
+    client.close();
+}
 
 int main()
 {
@@ -105,6 +126,9 @@ int main()
     std::cout << "\n--- Forme chargee depuis save.txt ---\n";
     std::cout << loaded->toString() << "\n";
     std::cout << "Aire chargee = " << loaded->aire() << "\n";
+
+    std::cout << "\nTentative dessin TCP (serveur Java requis)...\n";
+    dessiner(*loaded);
 
     std::cout << "\nFin\n";
     return 0;
