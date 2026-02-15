@@ -1,32 +1,37 @@
 #include <iostream>
-#include <fstream>
 #include <memory>
 
 #include "formes/Groupe.h"
 #include "formes/Segment.h"
-#include "formes/Cercle.h"
-#include "formes/Triangle.h"
-#include "formes/Polygone.h"
-#include "visitors/VisiteurSauvegarde.h"
 
 int main()
 {
-    auto s = std::make_shared<Segment>(Vecteur2D(0, 0), Vecteur2D(2, 0), Color::Red);
-    auto c = std::make_shared<Cercle>(Vecteur2D(1, 1), 2.0, Color::Blue);
+    auto s = std::make_shared<Segment>(
+        Vecteur2D(0, 0),
+        Vecteur2D(2, 0),
+        Color::Red);
 
-    std::vector<Vecteur2D> pts = {Vecteur2D(0, 0), Vecteur2D(4, 0), Vecteur2D(4, 3), Vecteur2D(0, 3)};
-    auto p = std::make_shared<Polygone>(pts, Color::Yellow);
+    Groupe g1(Color::Green);
+    Groupe g2(Color::Blue);
 
-    Groupe g(Color::Green);
-    g.ajouter(s);
-    g.ajouter(c);
-    g.ajouter(p);
+    std::cout << "Ajout dans g1\n";
+    g1.ajouter(s);
+    std::cout << "Parent de s: " << (s->getParent() == &g1 ? "g1" : "null") << "\n";
 
-    std::ofstream f("save.txt");
-    VisiteurSauvegarde vs(f);
-    g.accept(vs);
-    f.close();
+    std::cout << "Tentative ajout dans g2 (doit etre ignore)\n";
+    g2.ajouter(s);
 
-    std::cout << "Sauvegarde dans save.txt\n";
+    std::cout << "g1 contient " << g1.getFormes().size() << " forme(s)\n";
+    std::cout << "g2 contient " << g2.getFormes().size() << " forme(s)\n";
+
+    std::cout << "Retrait de g1\n";
+    g1.retirer(s);
+
+    std::cout << "Ajout dans g2 (doit fonctionner)\n";
+    g2.ajouter(s);
+
+    std::cout << "g1 contient " << g1.getFormes().size() << " forme(s)\n";
+    std::cout << "g2 contient " << g2.getFormes().size() << " forme(s)\n";
+
     return 0;
 }

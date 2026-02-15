@@ -6,11 +6,13 @@
 
 class Transformation;
 class VisiteurForme;
+class Groupe;
 
 class Forme
 {
 protected:
     Color couleur;
+    Groupe *parent = nullptr;
 
 public:
     explicit Forme(Color c = Color::Black);
@@ -18,6 +20,9 @@ public:
 
     void setCouleur(Color c);
     Color getCouleur() const;
+
+    Groupe *getParent() const;
+    void setParent(Groupe *g);
 
     virtual double aire() const = 0;
     virtual void appliquer(Transformation &t) = 0;

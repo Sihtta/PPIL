@@ -6,9 +6,38 @@
 
 Groupe::Groupe(Color col) : Forme(col) {}
 
+Groupe::~Groupe()
+{
+    for (size_t i = 0; i < formes.size(); ++i)
+        formes[i]->setParent(nullptr);
+}
+
 void Groupe::ajouter(const std::shared_ptr<Forme> &f)
 {
+    if (!f)
+        return;
+
+    if (f->getParent() != nullptr && f->getParent() != this)
+        return;
+
+    f->setParent(this);
     formes.push_back(f);
+}
+
+void Groupe::retirer(const std::shared_ptr<Forme> &f)
+{
+    if (!f)
+        return;
+
+    for (auto it = formes.begin(); it != formes.end(); ++it)
+    {
+        if (*it == f)
+        {
+            (*it)->setParent(nullptr);
+            formes.erase(it);
+            return;
+        }
+    }
 }
 
 const std::vector<std::shared_ptr<Forme>> &Groupe::getFormes() const

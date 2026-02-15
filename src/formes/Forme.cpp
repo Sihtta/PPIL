@@ -11,3 +11,13 @@ Color Forme::getCouleur() const
 {
     return couleur;
 }
+
+Groupe *Forme::getParent() const
+{
+    return parent;
+}
+
+void Forme::setParent(Groupe *g)
+{
+    parent = g;
+}
