@@ -18,4 +18,12 @@ add_executable(projet_synthese
 
 target_include_directories(projet_synthese PRIVATE include)
 
+if (WIN32)
+  target_compile_options(projet_synthese PRIVATE
+    "SHELL:-include winsock2.h"
+    "SHELL:-include ws2tcpip.h"
+  )
+  target_link_libraries(projet_synthese PRIVATE ws2_32)
+endif()
+
 add_subdirectory(tests)
