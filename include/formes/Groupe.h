@@ -14,8 +14,8 @@ public:
     Groupe(Color col = Color::Black);
     ~Groupe() override;
 
-    void ajouter(const std::shared_ptr<Forme> &f);
-    void retirer(const std::shared_ptr<Forme> &f);
+    bool ajouter(const std::shared_ptr<Forme> &f);
+    bool retirer(const std::shared_ptr<Forme> &f);
 
     const std::vector<std::shared_ptr<Forme>> &getFormes() const;
 

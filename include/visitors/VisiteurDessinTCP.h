@@ -3,6 +3,9 @@
 
 #include "visitors/VisiteurForme.h"
 #include "network/TcpClient.h"
+#include "core/Color.h"
+
+#include <vector>
 
 class VisiteurDessinTCP : public VisiteurForme
 {
@@ -17,6 +20,11 @@ public:
 
 private:
     TcpClient &client;
+
+    std::vector<Color> forcedColorStack;
+
+    Color effectiveColor(Color fallback) const;
+    void sendColor(Color c);
 };
 
 #endif

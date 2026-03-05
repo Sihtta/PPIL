@@ -29,6 +29,5 @@ public class ColorHandler extends Handler {
         else if (s.equals("cyan")) c = Color.CYAN;
 
         ctx.setCurrentColor(c);
-        System.out.println("COLOR = " + s);
     }
 }

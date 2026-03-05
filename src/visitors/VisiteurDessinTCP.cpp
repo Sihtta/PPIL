@@ -1,22 +1,36 @@
 #include "visitors/VisiteurDessinTCP.h"
+
 #include "formes/Segment.h"
 #include "formes/Cercle.h"
 #include "formes/Triangle.h"
 #include "formes/Polygone.h"
 #include "formes/Groupe.h"
 #include "core/Color.h"
+
 #include <sstream>
 
 VisiteurDessinTCP::VisiteurDessinTCP(TcpClient &c)
     : client(c) {}
 
-void VisiteurDessinTCP::visit(Segment &s)
+Color VisiteurDessinTCP::effectiveColor(Color fallback) const
+{
+    if (!forcedColorStack.empty())
+        return forcedColorStack.back();
+    return fallback;
+}
+
+void VisiteurDessinTCP::sendColor(Color c)
 {
     std::ostringstream oss;
-    oss << "COLOR " << colorToString(s.getCouleur());
+    oss << "COLOR " << colorToString(c);
     client.sendLine(oss.str());
+}
 
-    oss.str("");
+void VisiteurDessinTCP::visit(Segment &s)
+{
+    sendColor(effectiveColor(s.getCouleur()));
+
+    std::ostringstream oss;
     oss << "SEGMENT "
         << s.getA().x << " " << s.getA().y << " "
         << s.getB().x << " " << s.getB().y;
@@ -25,11 +39,9 @@ void VisiteurDessinTCP::visit(Segment &s)
 
 void VisiteurDessinTCP::visit(Cercle &c)
 {
-    std::ostringstream oss;
-    oss << "COLOR " << colorToString(c.getCouleur());
-    client.sendLine(oss.str());
+    sendColor(effectiveColor(c.getCouleur()));
 
-    oss.str("");
+    std::ostringstream oss;
     oss << "CERCLE "
         << c.getCentre().x << " "
         << c.getCentre().y << " "
@@ -39,11 +51,9 @@ void VisiteurDessinTCP::visit(Cercle &c)
 
 void VisiteurDessinTCP::visit(Triangle &t)
 {
-    std::ostringstream oss;
-    oss << "COLOR " << colorToString(t.getCouleur());
-    client.sendLine(oss.str());
+    sendColor(effectiveColor(t.getCouleur()));
 
-    oss.str("");
+    std::ostringstream oss;
     oss << "POLYGON 3 "
         << t.getA().x << " " << t.getA().y << " "
         << t.getB().x << " " << t.getB().y << " "
@@ -53,15 +63,13 @@ void VisiteurDessinTCP::visit(Triangle &t)
 
 void VisiteurDessinTCP::visit(Polygone &p)
 {
-    std::ostringstream oss;
-    oss << "COLOR " << colorToString(p.getCouleur());
-    client.sendLine(oss.str());
+    sendColor(effectiveColor(p.getCouleur()));
 
     const auto &pts = p.getPoints();
 
-    oss.str("");
+    std::ostringstream oss;
     oss << "POLYGON " << pts.size();
-    for (auto &pt : pts)
+    for (const auto &pt : pts)
         oss << " " << pt.x << " " << pt.y;
 
     client.sendLine(oss.str());
@@ -69,6 +77,10 @@ void VisiteurDessinTCP::visit(Polygone &p)
 
 void VisiteurDessinTCP::visit(Groupe &g)
 {
+    forcedColorStack.push_back(g.getCouleur());
+
     for (auto &f : g.getFormes())
         f->accept(*this);
+
+    forcedColorStack.pop_back();
 }

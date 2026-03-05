@@ -4,6 +4,27 @@
 #include "core/Color.h"
 #include <sstream>
 
+static bool contientGroupe(const Groupe *racine, const Groupe *cible)
+{
+    if (!racine || !cible)
+        return false;
+
+    if (racine == cible)
+        return true;
+
+    const auto &enfants = racine->getFormes();
+    for (const auto &f : enfants)
+    {
+        const Groupe *g = dynamic_cast<const Groupe *>(f.get());
+        if (g)
+        {
+            if (contientGroupe(g, cible))
+                return true;
+        }
+    }
+    return false;
+}
+
 Groupe::Groupe(Color col) : Forme(col) {}
 
 Groupe::~Groupe()
@@ -12,22 +33,40 @@ Groupe::~Groupe()
         formes[i]->setParent(nullptr);
 }
 
-void Groupe::ajouter(const std::shared_ptr<Forme> &f)
+bool Groupe::ajouter(const std::shared_ptr<Forme> &f)
 {
     if (!f)
-        return;
+        return false;
+
+    for (const auto &x : formes)
+    {
+        if (x == f)
+            return false;
+    }
 
     if (f->getParent() != nullptr && f->getParent() != this)
-        return;
+        return false;
+
+    if (f.get() == this)
+        return false;
+
+    const Groupe *fg = dynamic_cast<const Groupe *>(f.get());
+    if (fg)
+    {
+        if (contientGroupe(fg, this))
+            return false;
+    }
 
     f->setParent(this);
     formes.push_back(f);
+
+    return true;
 }
 
-void Groupe::retirer(const std::shared_ptr<Forme> &f)
+bool Groupe::retirer(const std::shared_ptr<Forme> &f)
 {
     if (!f)
-        return;
+        return false;
 
     for (auto it = formes.begin(); it != formes.end(); ++it)
     {
@@ -35,9 +74,10 @@ void Groupe::retirer(const std::shared_ptr<Forme> &f)
         {
             (*it)->setParent(nullptr);
             formes.erase(it);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 const std::vector<std::shared_ptr<Forme>> &Groupe::getFormes() const
@@ -49,9 +89,7 @@ double Groupe::aire() const
 {
     double total = 0.0;
     for (const auto &f : formes)
-    {
         total += f->aire();
-    }
     return total;
 }
 

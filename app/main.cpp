@@ -1,135 +1,102 @@
 #include <iostream>
-#include <fstream>
 #include <memory>
 #include <vector>
+#include <cmath>
 
 #include "core/Vecteur2D.h"
 #include "core/Color.h"
 
-#include "chargement/ChargeurForme.h"
-
+#include "formes/Forme.h"
 #include "formes/Segment.h"
 #include "formes/Cercle.h"
-#include "formes/Triangle.h"
-#include "formes/Polygone.h"
 #include "formes/Groupe.h"
 
-#include "transformations/Translation.h"
-#include "transformations/Rotation.h"
-#include "transformations/Homothetie.h"
-
-#include "visitors/VisiteurSauvegarde.h"
 #include "network/TcpClient.h"
 #include "visitors/VisiteurDessinTCP.h"
 
-static void dessiner(Forme &f)
+// -------- TCP draw ----------
+static bool dessinerTCP(Forme &f, int w = 1200, int h = 650)
 {
     TcpClient client("127.0.0.1", 12345);
-
     if (!client.connectToServer())
     {
-        std::cout << "Connexion serveur dessin impossible\n";
-        return;
+        std::cout << "[DESSIN] Connexion serveur dessin impossible\n";
+        return false;
     }
 
-    client.sendLine("OPEN 800 600");
-
+    client.sendLine("OPEN " + std::to_string(w) + " " + std::to_string(h));
     VisiteurDessinTCP v(client);
     f.accept(v);
-
     client.sendLine("END");
     client.close();
+    return true;
+}
+
+// -------- helpers ----------
+static void addDot(Groupe &g, const Vecteur2D &p, double r)
+{
+    g.ajouter(std::make_shared<Cercle>(p, r, Color::Blue));
 }
 
 int main()
 {
-    std::cout << "Projet synthese : tests metier (en C++14)\n\n";
+    std::cout << "PPIL - Serpent pointille (simple)\n";
 
-    std::shared_ptr<Forme> seg = std::make_shared<Segment>(
-        Vecteur2D(0, 0), Vecteur2D(2, 0), Color::Red);
+    // Scène globale
+    Groupe scene(Color::Black);
 
-    std::shared_ptr<Forme> cer = std::make_shared<Cercle>(
-        Vecteur2D(1, 1), 2.0, Color::Blue);
+    // Axe noir
+    scene.ajouter(std::make_shared<Segment>(Vecteur2D(-160, 0), Vecteur2D(260, 0), Color::Black));
 
-    std::shared_ptr<Forme> tri = std::make_shared<Triangle>(
-        Vecteur2D(0, 0), Vecteur2D(4, 0), Vecteur2D(0, 3), Color::Green);
+    // Serpent (groupe bleu => couleur imposée au dessin si ton visitor est OK)
+    auto snake = std::make_shared<Groupe>(Color::Blue);
 
-    std::vector<Vecteur2D> pts;
-    pts.push_back(Vecteur2D(0, 0));
-    pts.push_back(Vecteur2D(4, 0));
-    pts.push_back(Vecteur2D(4, 3));
-    pts.push_back(Vecteur2D(0, 3));
-    std::shared_ptr<Forme> pol = std::make_shared<Polygone>(pts, Color::Yellow);
+    // Paramètres "style"
+    const double step = 2.5;                               // distance entre points sur x
+    const double dotR = 0.8;                               // rayon des points du corps
+    const double amp = 45.0;                               // amplitude de l'onde (hauteur)
+    const double len = 360.0;                              // longueur du serpent
+    const double k = 2.0 * 3.14159265358979323846 / 140.0; // fréquence (période ~ 140)
 
-    Groupe g(Color::Cyan);
-    g.ajouter(seg);
-    g.ajouter(cer);
-    g.ajouter(tri);
-    g.ajouter(pol);
+    // Point de départ (queue) -> vers la droite (tête)
+    const double x0 = -130.0;
+    const double y0 = -10.0;
 
-    std::cout << "Etat initial:\n";
-    std::cout << g.toString() << "\n";
-    std::cout << "Aire groupe = " << g.aire() << "\n\n";
-
-    Translation t(Vecteur2D(10, 0));
-    g.appliquer(t);
-
-    std::cout << "Apres translation (10,0):\n";
-    std::cout << g.toString() << "\n";
-    std::cout << "Aire groupe = " << g.aire() << "\n\n";
-
-    const double PI = 3.14159265358979323846;
-    Rotation r(Vecteur2D(0, 0), PI / 2.0);
-    g.appliquer(r);
-
-    std::cout << "Apres rotation 90 deg autour (0,0):\n";
-    std::cout << g.toString() << "\n";
-    std::cout << "Aire groupe = " << g.aire() << "\n\n";
-
-    Homothetie h(Vecteur2D(0, 0), 2.0);
-    g.appliquer(h);
-
-    std::cout << "Apres homothetie k=2 autour (0,0):\n";
-    std::cout << g.toString() << "\n";
-    std::cout << "Aire groupe = " << g.aire() << "\n\n";
-
-    std::ofstream f("save.txt");
-    if (!f)
+    // Corps : y = y0 + amp*sin(k*(x-x0)) * attenuation
+    // attenuation donne une queue plus fine / moins ample
+    for (double dx = 0.0; dx <= len; dx += step)
     {
-        std::cout << "Erreur: impossible d'ouvrir save.txt en ecriture\n";
-        return 1;
+        double x = x0 + dx;
+        double att = 0.25 + 0.75 * (dx / len); // 0.25 -> 1.0
+        double y = y0 + (amp * att) * std::sin(k * dx);
+        addDot(*snake, Vecteur2D(x, y), dotR);
     }
 
-    VisiteurSauvegarde vs(f);
-    g.accept(vs);
-    f.close();
+    // Tête (au bout)
+    const double headX = x0 + len;
+    const double headY = y0 + (amp * 1.0) * std::sin(k * len);
+    snake->ajouter(std::make_shared<Cercle>(Vecteur2D(headX, headY), 5.0, Color::Blue));
 
-    std::cout << "Sauvegarde ok -> save.txt\n";
+    // Œil (option, petit point)
+    addDot(*snake, Vecteur2D(headX + 2.0, headY + 2.0), 0.8);
 
-    std::ifstream fin("save.txt");
-    if (!fin)
-    {
-        std::cout << "Erreur: impossible d'ouvrir save.txt en lecture\n";
-        return 1;
-    }
+    // Langue (2 segments en "V")
+    snake->ajouter(std::make_shared<Segment>(
+        Vecteur2D(headX + 5.0, headY),
+        Vecteur2D(headX + 11.0, headY + 3.0),
+        Color::Blue));
 
-    ChargeurForme loader;
-    std::shared_ptr<Forme> loaded = loader.chargerUne(fin);
-    fin.close();
+    snake->ajouter(std::make_shared<Segment>(
+        Vecteur2D(headX + 5.0, headY),
+        Vecteur2D(headX + 11.0, headY - 3.0),
+        Color::Blue));
 
-    if (!loaded)
-    {
-        std::cout << "Erreur: chargement impossible\n";
-        return 1;
-    }
+    // Ajout à la scène + dessin
+    scene.ajouter(snake);
 
-    std::cout << "\n--- Forme chargee depuis save.txt ---\n";
-    std::cout << loaded->toString() << "\n";
-    std::cout << "Aire chargee = " << loaded->aire() << "\n";
+    std::cout << "[DESSIN] Envoi au serveur Java...\n";
+    dessinerTCP(scene, 1250, 650);
 
-    std::cout << "\nTentative dessin TCP (serveur Java requis)...\n";
-    dessiner(*loaded);
-
-    std::cout << "\nFin\n";
+    std::cout << "Fin\n";
     return 0;
 }
