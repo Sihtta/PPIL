@@ -9,9 +9,11 @@
 
 #include <sstream>
 
+// Constructeur : initialise le client TCP utilisé pour envoyer les commandes
 VisiteurDessinTCP::VisiteurDessinTCP(TcpClient &c)
     : client(c) {}
 
+// Détermine la couleur effective à utiliser (couleur forcée du groupe ou couleur de la forme)
 Color VisiteurDessinTCP::effectiveColor(Color fallback) const
 {
     if (!forcedColorStack.empty())
@@ -19,6 +21,7 @@ Color VisiteurDessinTCP::effectiveColor(Color fallback) const
     return fallback;
 }
 
+// Envoie au serveur la commande de changement de couleur
 void VisiteurDessinTCP::sendColor(Color c)
 {
     std::ostringstream oss;
@@ -26,6 +29,7 @@ void VisiteurDessinTCP::sendColor(Color c)
     client.sendLine(oss.str());
 }
 
+// Envoie au serveur la commande pour dessiner un segment
 void VisiteurDessinTCP::visit(Segment &s)
 {
     sendColor(effectiveColor(s.getCouleur()));
@@ -37,6 +41,7 @@ void VisiteurDessinTCP::visit(Segment &s)
     client.sendLine(oss.str());
 }
 
+// Envoie au serveur la commande pour dessiner un cercle
 void VisiteurDessinTCP::visit(Cercle &c)
 {
     sendColor(effectiveColor(c.getCouleur()));
@@ -49,6 +54,7 @@ void VisiteurDessinTCP::visit(Cercle &c)
     client.sendLine(oss.str());
 }
 
+// Envoie au serveur la commande pour dessiner un triangle (via POLYGON 3)
 void VisiteurDessinTCP::visit(Triangle &t)
 {
     sendColor(effectiveColor(t.getCouleur()));
@@ -61,6 +67,7 @@ void VisiteurDessinTCP::visit(Triangle &t)
     client.sendLine(oss.str());
 }
 
+// Envoie au serveur la commande pour dessiner un polygone
 void VisiteurDessinTCP::visit(Polygone &p)
 {
     sendColor(effectiveColor(p.getCouleur()));
@@ -75,6 +82,7 @@ void VisiteurDessinTCP::visit(Polygone &p)
     client.sendLine(oss.str());
 }
 
+// Dessine toutes les formes d'un groupe en forçant la couleur du groupe
 void VisiteurDessinTCP::visit(Groupe &g)
 {
     forcedColorStack.push_back(g.getCouleur());

@@ -5,25 +5,30 @@
 #include "formes/Polygone.h"
 #include "formes/Groupe.h"
 
+// Constructeur : initialise le centre et le rapport d'homothétie
 Homothetie::Homothetie(const Vecteur2D &centre_, double k_)
     : centre(centre_), k(k_) {}
 
+// Applique l'homothétie à un point
 Vecteur2D Homothetie::homoPoint(const Vecteur2D &p) const
 {
     Vecteur2D d = p - centre;
     return centre + d * k;
 }
 
+// Applique l'homothétie aux deux points du segment
 void Homothetie::visit(Segment &s)
 {
     s.setA(homoPoint(s.getA()));
     s.setB(homoPoint(s.getB()));
 }
 
+// Applique l'homothétie au cercle
 void Homothetie::visit(Cercle &c)
 {
     c.setCentre(homoPoint(c.getCentre()));
 
+    // Le rayon est multiplié par la valeur absolue du rapport
     double kk = k;
     if (kk < 0)
         kk = -kk;
@@ -31,6 +36,7 @@ void Homothetie::visit(Cercle &c)
         c.setRayon(c.getRayon() * kk);
 }
 
+// Applique l'homothétie aux trois sommets du triangle
 void Homothetie::visit(Triangle &t)
 {
     t.setA(homoPoint(t.getA()));
@@ -38,6 +44,7 @@ void Homothetie::visit(Triangle &t)
     t.setC(homoPoint(t.getC()));
 }
 
+// Applique l'homothétie à tous les points du polygone
 void Homothetie::visit(Polygone &p)
 {
     std::vector<Vecteur2D> pts = p.getPoints();
@@ -46,6 +53,7 @@ void Homothetie::visit(Polygone &p)
     p.setPoints(pts);
 }
 
+// Applique l'homothétie à toutes les formes du groupe
 void Homothetie::visit(Groupe &g)
 {
     const auto &fs = g.getFormes();

@@ -4,19 +4,24 @@
 #include "core/Color.h"
 #include <sstream>
 
+// Constructeur : initialise le polygone avec ses points et sa couleur
 Polygone::Polygone(const std::vector<Vecteur2D> &pts, Color col)
     : Forme(col), points(pts) {}
 
+// Retourne la liste des points du polygone
 const std::vector<Vecteur2D> &Polygone::getPoints() const
 {
     return points;
 }
 
+// Modifie les points du polygone
 void Polygone::setPoints(const std::vector<Vecteur2D> &pts)
 {
     points = pts;
 }
 
+// Calcule l'aire du polygone
+// Le polygone est décomposé en triangles à partir du premier point
 double Polygone::aire() const
 {
     if (points.size() < 3)
@@ -38,13 +43,16 @@ double Polygone::aire() const
     return aireTotale;
 }
 
+// Applique une transformation au polygone
 void Polygone::appliquer(Transformation &t) { t.appliquer(*this); }
 
+// Méthode du pattern Visitor
 void Polygone::accept(VisiteurForme &v)
 {
     v.visit(*this);
 }
 
+// Retourne une représentation textuelle du polygone
 std::string Polygone::toString() const
 {
     std::ostringstream oss;

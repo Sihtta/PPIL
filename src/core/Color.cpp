@@ -1,5 +1,6 @@
 #include "core/Color.h"
 
+// Convertit une valeur de l'énumération Color en chaîne de caractères
 std::string colorToString(Color c)
 {
     switch (c)
@@ -20,6 +21,7 @@ std::string colorToString(Color c)
     return "black";
 }
 
+// Convertit une chaîne de caractères en valeur de l'énumération Color
 Color stringToColor(const std::string &s)
 {
     if (s == "black")

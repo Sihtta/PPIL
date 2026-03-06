@@ -6,9 +6,11 @@
 #include "formes/Groupe.h"
 #include <cmath>
 
+// Constructeur : initialise le centre et l'angle de rotation (en radians)
 Rotation::Rotation(const Vecteur2D &centre_, double angleRad)
     : centre(centre_), angle(angleRad) {}
 
+// Applique la rotation à un point autour du centre
 Vecteur2D Rotation::rotPoint(const Vecteur2D &p) const
 {
     double x = p.x - centre.x;
@@ -23,17 +25,20 @@ Vecteur2D Rotation::rotPoint(const Vecteur2D &p) const
     return Vecteur2D(xr + centre.x, yr + centre.y);
 }
 
+// Applique la rotation aux deux points du segment
 void Rotation::visit(Segment &s)
 {
     s.setA(rotPoint(s.getA()));
     s.setB(rotPoint(s.getB()));
 }
 
+// Applique la rotation au centre du cercle
 void Rotation::visit(Cercle &c)
 {
     c.setCentre(rotPoint(c.getCentre()));
 }
 
+// Applique la rotation aux trois sommets du triangle
 void Rotation::visit(Triangle &t)
 {
     t.setA(rotPoint(t.getA()));
@@ -41,6 +46,7 @@ void Rotation::visit(Triangle &t)
     t.setC(rotPoint(t.getC()));
 }
 
+// Applique la rotation à tous les points du polygone
 void Rotation::visit(Polygone &p)
 {
     std::vector<Vecteur2D> pts = p.getPoints();
@@ -49,6 +55,7 @@ void Rotation::visit(Polygone &p)
     p.setPoints(pts);
 }
 
+// Applique la rotation à toutes les formes du groupe
 void Rotation::visit(Groupe &g)
 {
     const auto &fs = g.getFormes();

@@ -13,6 +13,7 @@
 #include <sstream>
 #include <vector>
 
+// Passe le traitement au handler suivant de la chaîne
 bool ChargeurForme::Handler::pass(const std::string &line,
                                   std::istream &in,
                                   std::shared_ptr<Forme> &out,
@@ -23,6 +24,7 @@ bool ChargeurForme::Handler::pass(const std::string &line,
     return next->handle(line, in, out, loader);
 }
 
+// Extrait le premier mot de la ligne pour identifier le type de forme
 static std::string firstToken(const std::string &line)
 {
     std::istringstream iss(line);
@@ -31,6 +33,7 @@ static std::string firstToken(const std::string &line)
     return tok;
 }
 
+// Handler chargé de reconnaître et construire un segment
 class SegmentHandler : public ChargeurForme::Handler
 {
 public:
@@ -54,6 +57,7 @@ public:
     }
 };
 
+// Handler chargé de reconnaître et construire un cercle
 class CercleHandler : public ChargeurForme::Handler
 {
 public:
@@ -77,6 +81,7 @@ public:
     }
 };
 
+// Handler chargé de reconnaître et construire un triangle
 class TriangleHandler : public ChargeurForme::Handler
 {
 public:
@@ -104,6 +109,7 @@ public:
     }
 };
 
+// Handler chargé de reconnaître et construire un polygone
 class PolygoneHandler : public ChargeurForme::Handler
 {
 public:
@@ -135,6 +141,7 @@ public:
     }
 };
 
+// Handler chargé de reconnaître et construire un groupe
 class GroupeHandler : public ChargeurForme::Handler
 {
 public:
@@ -151,6 +158,7 @@ public:
         size_t nb;
         iss >> tag >> col >> nb;
 
+        // Création du groupe puis chargement récursif de ses sous-formes
         std::shared_ptr<Groupe> g = std::make_shared<Groupe>(stringToColor(col));
 
         for (size_t i = 0; i < nb; ++i)
@@ -160,6 +168,7 @@ public:
                 g->ajouter(child);
         }
 
+        // Lecture éventuelle de la ligne de fin du groupe
         std::string endLine;
         if (!ChargeurForme::lireLigneUtile(in, endLine))
         {
@@ -178,6 +187,7 @@ public:
     }
 };
 
+// Construit la chaîne de responsabilité des handlers de chargement
 ChargeurForme::ChargeurForme()
 {
     hSegment.reset(new SegmentHandler());
@@ -194,6 +204,7 @@ ChargeurForme::ChargeurForme()
     head = hSegment.get();
 }
 
+// Lit la prochaine ligne non vide du flux
 bool ChargeurForme::lireLigneUtile(std::istream &in, std::string &line)
 {
     while (std::getline(in, line))
@@ -204,6 +215,7 @@ bool ChargeurForme::lireLigneUtile(std::istream &in, std::string &line)
     return false;
 }
 
+// Charge une forme en laissant la chaîne déterminer son type
 std::shared_ptr<Forme> ChargeurForme::chargerUne(std::istream &in)
 {
     std::string line;

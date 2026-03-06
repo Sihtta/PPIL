@@ -4,6 +4,8 @@
 #include "core/Color.h"
 #include <sstream>
 
+// Vérifie récursivement si un groupe contient un autre groupe
+// Permet d'éviter de créer des cycles dans la hiérarchie des groupes
 static bool contientGroupe(const Groupe *racine, const Groupe *cible)
 {
     if (!racine || !cible)
@@ -25,31 +27,38 @@ static bool contientGroupe(const Groupe *racine, const Groupe *cible)
     return false;
 }
 
+// Constructeur du groupe
 Groupe::Groupe(Color col) : Forme(col) {}
 
+// Destructeur : détache les formes du groupe
 Groupe::~Groupe()
 {
     for (size_t i = 0; i < formes.size(); ++i)
         formes[i]->setParent(nullptr);
 }
 
+// Ajoute une forme au groupe en vérifiant plusieurs contraintes
 bool Groupe::ajouter(const std::shared_ptr<Forme> &f)
 {
     if (!f)
         return false;
 
+    // Empêche l'ajout de doublons
     for (const auto &x : formes)
     {
         if (x == f)
             return false;
     }
 
+    // Une forme ne peut appartenir qu'à un seul groupe
     if (f->getParent() != nullptr && f->getParent() != this)
         return false;
 
+    // Empêche qu'un groupe se contienne lui-même
     if (f.get() == this)
         return false;
 
+    // Vérifie qu'il n'y aura pas de cycle de groupes
     const Groupe *fg = dynamic_cast<const Groupe *>(f.get());
     if (fg)
     {
@@ -63,6 +72,7 @@ bool Groupe::ajouter(const std::shared_ptr<Forme> &f)
     return true;
 }
 
+// Retire une forme du groupe
 bool Groupe::retirer(const std::shared_ptr<Forme> &f)
 {
     if (!f)
@@ -80,11 +90,13 @@ bool Groupe::retirer(const std::shared_ptr<Forme> &f)
     return false;
 }
 
+// Retourne la liste des formes du groupe
 const std::vector<std::shared_ptr<Forme>> &Groupe::getFormes() const
 {
     return formes;
 }
 
+// Calcule l'aire totale du groupe (somme des aires des formes)
 double Groupe::aire() const
 {
     double total = 0.0;
@@ -93,13 +105,16 @@ double Groupe::aire() const
     return total;
 }
 
+// Applique une transformation au groupe
 void Groupe::appliquer(Transformation &t) { t.appliquer(*this); }
 
+// Méthode du pattern Visitor
 void Groupe::accept(VisiteurForme &v)
 {
     v.visit(*this);
 }
 
+// Retourne une représentation textuelle du groupe et de ses formes
 std::string Groupe::toString() const
 {
     std::ostringstream oss;

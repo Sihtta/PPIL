@@ -1,0 +1,25 @@
+var annotated_dup =
+[
+    [ "Cercle", "class_cercle.html", "class_cercle" ],
+    [ "CercleHandler", "class_cercle_handler.html", "class_cercle_handler" ],
+    [ "ChargeurForme", "class_chargeur_forme.html", "class_chargeur_forme" ],
+    [ "Forme", "class_forme.html", "class_forme" ],
+    [ "Groupe", "class_groupe.html", "class_groupe" ],
+    [ "GroupeHandler", "class_groupe_handler.html", "class_groupe_handler" ],
+    [ "Homothetie", "class_homothetie.html", "class_homothetie" ],
+    [ "Polygone", "class_polygone.html", "class_polygone" ],
+    [ "PolygoneHandler", "class_polygone_handler.html", "class_polygone_handler" ],
+    [ "Rotation", "class_rotation.html", "class_rotation" ],
+    [ "Segment", "class_segment.html", "class_segment" ],
+    [ "SegmentHandler", "class_segment_handler.html", "class_segment_handler" ],
+    [ "TcpClient", "class_tcp_client.html", "class_tcp_client" ],
+    [ "Transformation", "class_transformation.html", "class_transformation" ],
+    [ "Translation", "class_translation.html", "class_translation" ],
+    [ "Triangle", "class_triangle.html", "class_triangle" ],
+    [ "TriangleHandler", "class_triangle_handler.html", "class_triangle_handler" ],
+    [ "Vecteur2D", "class_vecteur2_d.html", "class_vecteur2_d" ],
+    [ "VisiteurDessinTCP", "class_visiteur_dessin_t_c_p.html", "class_visiteur_dessin_t_c_p" ],
+    [ "VisiteurForme", "class_visiteur_forme.html", "class_visiteur_forme" ],
+    [ "VisiteurSauvegarde", "class_visiteur_sauvegarde.html", "class_visiteur_sauvegarde" ],
+    [ "WinsockSingleton", "class_winsock_singleton.html", "class_winsock_singleton" ]
+];

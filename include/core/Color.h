@@ -3,6 +3,7 @@
 
 #include <string>
 
+/// Couleurs disponibles pour les formes
 enum class Color
 {
     Black,
@@ -13,8 +14,10 @@ enum class Color
     Cyan
 };
 
+/// Convertit une couleur en chaîne de caractères
 std::string colorToString(Color c);
 
+/// Convertit une chaîne de caractères en couleur
 Color stringToColor(const std::string &s);
 
 #endif
