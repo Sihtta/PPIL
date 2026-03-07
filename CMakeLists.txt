@@ -16,7 +16,12 @@ add_executable(projet_synthese
     ${SOURCES}
 )
 
+add_executable(convertisseur
+    tools/ConvertisseurGecko.cpp
+)
+
 target_include_directories(projet_synthese PRIVATE include)
+target_include_directories(convertisseur PRIVATE include)
 
 if (WIN32)
   target_compile_options(projet_synthese PRIVATE
@@ -25,5 +30,3 @@ if (WIN32)
   )
   target_link_libraries(projet_synthese PRIVATE ws2_32)
 endif()
-
-add_subdirectory(tests)

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['vecteur2d_0',['Vecteur2D',['../class_vecteur2_d.html',1,'']]],
-  ['visiteurdessintcp_1',['VisiteurDessinTCP',['../class_visiteur_dessin_t_c_p.html',1,'']]],
-  ['visiteurforme_2',['VisiteurForme',['../class_visiteur_forme.html',1,'']]],
-  ['visiteursauvegarde_3',['VisiteurSauvegarde',['../class_visiteur_sauvegarde.html',1,'']]]
+  ['tcpclient_0',['TcpClient',['../class_tcp_client.html',1,'']]],
+  ['transformation_1',['Transformation',['../class_transformation.html',1,'']]],
+  ['translation_2',['Translation',['../class_translation.html',1,'']]],
+  ['triangle_3',['Triangle',['../class_triangle.html',1,'']]],
+  ['trianglehandler_4',['TriangleHandler',['../class_triangle_handler.html',1,'']]]
 ];

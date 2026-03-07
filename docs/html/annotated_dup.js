@@ -7,6 +7,7 @@ var annotated_dup =
     [ "Groupe", "class_groupe.html", "class_groupe" ],
     [ "GroupeHandler", "class_groupe_handler.html", "class_groupe_handler" ],
     [ "Homothetie", "class_homothetie.html", "class_homothetie" ],
+    [ "Matrice22", "class_matrice22.html", "class_matrice22" ],
     [ "Polygone", "class_polygone.html", "class_polygone" ],
     [ "PolygoneHandler", "class_polygone_handler.html", "class_polygone_handler" ],
     [ "Rotation", "class_rotation.html", "class_rotation" ],

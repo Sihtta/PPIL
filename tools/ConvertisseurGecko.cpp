@@ -14,7 +14,7 @@ struct SegmentData
 
 int main()
 {
-    std::ifstream in("data/gecko/gecko6PattesJoliesEcaillesCreteTaches_aretesVoronoi.txt");
+    std::ifstream in("./data/gecko/gecko6PattesJoliesEcaillesCreteTaches_aretesVoronoi.txt");
     std::ofstream out("data/gecko/gecko_voronoi_formes.txt");
 
     if (!in)

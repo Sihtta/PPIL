@@ -1,5 +1,16 @@
 var NAVTREEINDEX1 =
 {
+"class_visiteur_sauvegarde.html#abe3a8d3d3b58fa2dce075e9e0fbf7f21":[0,0,21,6],
+"class_visiteur_sauvegarde.html#ac92c312ab1adc7b8c1d75f36fd767f42":[0,0,21,2],
+"class_visiteur_sauvegarde.html#ad2a73d94d80dd36c234f72b3a04fa985":[0,0,21,4],
+"class_visiteur_sauvegarde.html#ae2b97e911d45137316b181f83151504c":[0,0,21,5],
+"class_winsock_singleton.html":[0,0,22],
+"class_winsock_singleton.html#a28615483bad247767b39ab0bef03c864":[0,0,22,4],
+"class_winsock_singleton.html#a595a4695982b1d9c5fe4d81325f323fb":[0,0,22,2],
+"class_winsock_singleton.html#a704d2a4dcbb5c0a9d621a85bae3cfdab":[0,0,22,0],
+"class_winsock_singleton.html#a88b76dbb9f5ca50bb49e5e21419d920a":[0,0,22,1],
+"class_winsock_singleton.html#abeb8f702956261bba132f1593d079af3":[0,0,22,3],
+"classes.html":[0,1],
 "dir_251727207ad277f893664a4e9ae1a652.html":[1,0,0,2],
 "dir_2d5131f68a5590eeb8c7610149e95108.html":[1,0,1,4],
 "dir_3d69f64eaf81436fe2b22361382717e5.html":[1,0,0,1],

@@ -159,7 +159,7 @@ int main()
     cout << "Aire groupe : " << groupe->aire() << endl;
 
     // 6) Sauvegarde dans un fichier texte (paragraphe 5)
-    const string fichier = "../data/formes.txt";
+    const string fichier = "data/formes.txt";
     {
         ofstream ofs(fichier);
         if (!ofs)
@@ -186,6 +186,17 @@ int main()
     // 8) Dessin du groupe via le serveur Java (paragraphe 4)
     cout << "\n--- Dessin du groupe courant ---" << endl;
     dessiner(*groupe);
+
+    // Plus : Dessin du gecko
+    cout << "\n--- Chargement et dessin du fichier gecko converti ---" << endl;
+    vector<shared_ptr<Forme>> geckoFormes = chargerToutes("data/gecko/gecko_voronoi_formes.txt");
+
+    cout << "Nombre de formes chargees : " << geckoFormes.size() << endl;
+
+    for (size_t i = 0; i < geckoFormes.size(); ++i)
+    {
+        dessiner(*geckoFormes[i]);
+    }
 
     cout << "\n=== FIN DES TESTS ===" << endl;
     return 0;

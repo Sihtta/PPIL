@@ -6,5 +6,7 @@ var searchData=
   ['close_3',['close',['../class_tcp_client.html#a1ee082bbca3927811bbe2c0aa75386c4',1,'TcpClient']]],
   ['colortostring_4',['colorToString',['../_color_8h.html#a6929539cc99847a0da49be5dc2d090d5',1,'colorToString(Color c):&#160;Color.cpp'],['../_color_8cpp.html#a6929539cc99847a0da49be5dc2d090d5',1,'colorToString(Color c):&#160;Color.cpp']]],
   ['connecttoserver_5',['connectToServer',['../class_tcp_client.html#a5fce4fdd32ec92939799ca6f9b633449',1,'TcpClient']]],
-  ['contientgroupe_6',['contientGroupe',['../_groupe_8cpp.html#ab1a6c246b2039745e4d389864070a362',1,'Groupe.cpp']]]
+  ['contientgroupe_6',['contientGroupe',['../_groupe_8cpp.html#ab1a6c246b2039745e4d389864070a362',1,'Groupe.cpp']]],
+  ['creehomothetie_7',['creeHomothetie',['../class_matrice22.html#ab165f2a465fbd8cfa85b5760872e819c',1,'Matrice22']]],
+  ['creerotation_8',['creeRotation',['../class_matrice22.html#a6296202c74fbbda1469be7a915e8ccaa',1,'Matrice22']]]
 ];

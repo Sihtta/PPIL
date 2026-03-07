@@ -15,6 +15,7 @@ var hierarchy =
       [ "SegmentHandler", "class_segment_handler.html", null ],
       [ "TriangleHandler", "class_triangle_handler.html", null ]
     ] ],
+    [ "Matrice22", "class_matrice22.html", null ],
     [ "TcpClient", "class_tcp_client.html", null ],
     [ "Vecteur2D", "class_vecteur2_d.html", null ],
     [ "VisiteurForme", "class_visiteur_forme.html", [

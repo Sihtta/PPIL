@@ -19,5 +19,7 @@ var searchData=
   ['connecttoserver_16',['connectToServer',['../class_tcp_client.html#a5fce4fdd32ec92939799ca6f9b633449',1,'TcpClient']]],
   ['contientgroupe_17',['contientGroupe',['../_groupe_8cpp.html#ab1a6c246b2039745e4d389864070a362',1,'Groupe.cpp']]],
   ['couleur_18',['couleur',['../class_forme.html#a21dab514c699a212a6b91571af5f49a0',1,'Forme']]],
-  ['cyan_19',['Cyan',['../_color_8h.html#ab87bacfdad76e61b9412d7124be44c1ca023c239d2f2538f140a20e72c7b73f20',1,'Color.h']]]
+  ['creehomothetie_19',['creeHomothetie',['../class_matrice22.html#ab165f2a465fbd8cfa85b5760872e819c',1,'Matrice22']]],
+  ['creerotation_20',['creeRotation',['../class_matrice22.html#a6296202c74fbbda1469be7a915e8ccaa',1,'Matrice22']]],
+  ['cyan_21',['Cyan',['../_color_8h.html#ab87bacfdad76e61b9412d7124be44c1ca023c239d2f2538f140a20e72c7b73f20',1,'Color.h']]]
 ];

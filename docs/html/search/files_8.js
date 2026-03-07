@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['vecteur2d_2ecpp_0',['Vecteur2D.cpp',['../_vecteur2_d_8cpp.html',1,'']]],
-  ['vecteur2d_2eh_1',['Vecteur2D.h',['../_vecteur2_d_8h.html',1,'']]],
-  ['visiteurdessintcp_2ecpp_2',['VisiteurDessinTCP.cpp',['../_visiteur_dessin_t_c_p_8cpp.html',1,'']]],
-  ['visiteurdessintcp_2eh_3',['VisiteurDessinTCP.h',['../_visiteur_dessin_t_c_p_8h.html',1,'']]],
-  ['visiteurforme_2eh_4',['VisiteurForme.h',['../_visiteur_forme_8h.html',1,'']]],
-  ['visiteursauvegarde_2ecpp_5',['VisiteurSauvegarde.cpp',['../_visiteur_sauvegarde_8cpp.html',1,'']]],
-  ['visiteursauvegarde_2eh_6',['VisiteurSauvegarde.h',['../_visiteur_sauvegarde_8h.html',1,'']]]
+  ['tcpclient_2ecpp_0',['TcpClient.cpp',['../_tcp_client_8cpp.html',1,'']]],
+  ['tcpclient_2eh_1',['TcpClient.h',['../_tcp_client_8h.html',1,'']]],
+  ['transformation_2ecpp_2',['Transformation.cpp',['../_transformation_8cpp.html',1,'']]],
+  ['transformation_2eh_3',['Transformation.h',['../_transformation_8h.html',1,'']]],
+  ['translation_2ecpp_4',['Translation.cpp',['../_translation_8cpp.html',1,'']]],
+  ['translation_2eh_5',['Translation.h',['../_translation_8h.html',1,'']]],
+  ['triangle_2ecpp_6',['Triangle.cpp',['../_triangle_8cpp.html',1,'']]],
+  ['triangle_2eh_7',['Triangle.h',['../_triangle_8h.html',1,'']]]
 ];

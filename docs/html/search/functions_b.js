@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['retirer_0',['retirer',['../class_groupe.html#a925dbcc2188c40121d583d9ff87762af',1,'Groupe']]],
-  ['rotation_1',['Rotation',['../class_rotation.html#a82e6f33ac9a32ebec1d66baca5d63c2d',1,'Rotation']]],
-  ['rotpoint_2',['rotPoint',['../class_rotation.html#abe2abf0bdc031d1b84881edaafa929d3',1,'Rotation']]]
+  ['pass_0',['pass',['../class_chargeur_forme_1_1_handler.html#ae1ffbc1b496f62e1c8d5f8b17e1894e1',1,'ChargeurForme::Handler']]],
+  ['polygone_1',['Polygone',['../class_polygone.html#afd6d91a0961fc0f4a0b4258151ea61c1',1,'Polygone']]]
 ];

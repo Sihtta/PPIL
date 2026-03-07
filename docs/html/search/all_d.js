@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['parent_0',['parent',['../class_forme.html#a0e4df04422d91079c2d50e1e8d351dae',1,'Forme']]],
-  ['pass_1',['pass',['../class_chargeur_forme_1_1_handler.html#ae1ffbc1b496f62e1c8d5f8b17e1894e1',1,'ChargeurForme::Handler']]],
-  ['points_2',['points',['../class_polygone.html#aee496123b16fa4dc1b9fd961c7c87310',1,'Polygone']]],
-  ['polygone_3',['Polygone',['../class_polygone.html',1,'Polygone'],['../class_polygone.html#afd6d91a0961fc0f4a0b4258151ea61c1',1,'Polygone::Polygone()']]],
-  ['polygone_2ecpp_4',['Polygone.cpp',['../_polygone_8cpp.html',1,'']]],
-  ['polygone_2eh_5',['Polygone.h',['../_polygone_8h.html',1,'']]],
-  ['polygonehandler_6',['PolygoneHandler',['../class_polygone_handler.html',1,'']]],
-  ['port_7',['port',['../class_tcp_client.html#aa112ef0470437e790931b3ec9c98a800',1,'TcpClient']]]
+  ['operator_20std_3a_3astring_0',['string',['../class_matrice22.html#a1a182e80f9a70ed8156a7ae20e9b8800',1,'Matrice22']]],
+  ['operator_2a_1',['operator*',['../class_matrice22.html#a44d14a16e9156a8b73cbc03b1bca910c',1,'Matrice22::operator*()'],['../class_vecteur2_d.html#a27d5d5e51a44d536a15af7bcb712f0f8',1,'Vecteur2D::operator*()'],['../_vecteur2_d_8h.html#a5cafe66174e783f38fc761daa0587b28',1,'operator*(double a, const Vecteur2D &amp;v):&#160;Vecteur2D.cpp'],['../_vecteur2_d_8cpp.html#a5cafe66174e783f38fc761daa0587b28',1,'operator*(double a, const Vecteur2D &amp;v):&#160;Vecteur2D.cpp']]],
+  ['operator_2b_2',['operator+',['../class_vecteur2_d.html#a63f578f6735b12cd1cadb13c723faa97',1,'Vecteur2D']]],
+  ['operator_2d_3',['operator-',['../class_vecteur2_d.html#a3a7c8532811efbe069aea93528914b77',1,'Vecteur2D::operator-(const Vecteur2D &amp;other) const'],['../class_vecteur2_d.html#af84de80bfc2b9b2f1cc26ac82fe360c0',1,'Vecteur2D::operator-() const']]],
+  ['operator_3d_4',['operator=',['../class_winsock_singleton.html#a28615483bad247767b39ab0bef03c864',1,'WinsockSingleton']]],
+  ['out_5',['out',['../class_visiteur_sauvegarde.html#abe3a8d3d3b58fa2dce075e9e0fbf7f21',1,'VisiteurSauvegarde']]]
 ];

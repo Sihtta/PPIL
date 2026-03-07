@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['v_0',['v',['../class_translation.html#a851ee3e838957d744c338e97c2c68800',1,'Translation']]]
+  ['sock_0',['sock',['../class_tcp_client.html#af93f7c8c4d91d93379ba99fd3742c3dc',1,'TcpClient']]]
 ];
