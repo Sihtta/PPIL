@@ -4,7 +4,7 @@
 #include "formes/Triangle.h"
 #include "formes/Polygone.h"
 #include "formes/Groupe.h"
-#include <cmath>
+#include "core/Matrice22.h"
 
 // Constructeur : initialise le centre et l'angle de rotation (en radians)
 Rotation::Rotation(const Vecteur2D &centre_, double angleRad)
@@ -13,16 +13,8 @@ Rotation::Rotation(const Vecteur2D &centre_, double angleRad)
 // Applique la rotation à un point autour du centre
 Vecteur2D Rotation::rotPoint(const Vecteur2D &p) const
 {
-    double x = p.x - centre.x;
-    double y = p.y - centre.y;
-
-    double ca = std::cos(angle);
-    double sa = std::sin(angle);
-
-    double xr = x * ca - y * sa;
-    double yr = x * sa + y * ca;
-
-    return Vecteur2D(xr + centre.x, yr + centre.y);
+    Matrice22 r = Matrice22::creeRotation(angle);
+    return centre + r * (p - centre);
 }
 
 // Applique la rotation aux deux points du segment

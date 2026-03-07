@@ -4,6 +4,8 @@
 #include "formes/Triangle.h"
 #include "formes/Polygone.h"
 #include "formes/Groupe.h"
+#include "core/Matrice22.h"
+#include <vector>
 
 // Constructeur : initialise le centre et le rapport d'homothétie
 Homothetie::Homothetie(const Vecteur2D &centre_, double k_)
@@ -12,8 +14,8 @@ Homothetie::Homothetie(const Vecteur2D &centre_, double k_)
 // Applique l'homothétie à un point
 Vecteur2D Homothetie::homoPoint(const Vecteur2D &p) const
 {
-    Vecteur2D d = p - centre;
-    return centre + d * k;
+    Matrice22 h = Matrice22::creeHomothetie(k);
+    return centre + h * (p - centre);
 }
 
 // Applique l'homothétie aux deux points du segment
@@ -28,7 +30,6 @@ void Homothetie::visit(Cercle &c)
 {
     c.setCentre(homoPoint(c.getCentre()));
 
-    // Le rayon est multiplié par la valeur absolue du rapport
     double kk = k;
     if (kk < 0)
         kk = -kk;
