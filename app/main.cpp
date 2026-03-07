@@ -159,7 +159,7 @@ int main()
     cout << "Aire groupe : " << groupe->aire() << endl;
 
     // 6) Sauvegarde dans un fichier texte (paragraphe 5)
-    const string fichier = "formes.txt";
+    const string fichier = "../data/formes.txt";
     {
         ofstream ofs(fichier);
         if (!ofs)
